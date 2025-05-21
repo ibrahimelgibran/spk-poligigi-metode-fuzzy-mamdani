@@ -25,54 +25,54 @@ class KriteriaPenilaianResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-   public static function form(Form $form): Form
-{
-    return $form
-        ->schema([
-            Select::make('nama_alat_kesehatan_dan_bahan')
-                ->label('Nama Alat dan Bahan')
-                ->options(Aset::pluck('nama_alat_dan_bahan', 'nama_alat_dan_bahan')->toArray())
-                ->searchable()
-                ->required(),
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Select::make('nama_alat_kesehatan_dan_bahan')
+                    ->label('Nama Alat dan Bahan')
+                    ->options(Aset::pluck('nama_alat_dan_bahan', 'nama_alat_dan_bahan')->toArray())
+                    ->searchable()
+                    ->required(),
 
-         TextInput::make('nilai_akhir')
-    ->label('Nilai Akhir')
-    ->numeric()
-    ->required()
-    ->readOnly()
-      ->dehydrated(true),// supaya tidak bisa input manual, nilai dihitung otomatis
+                TextInput::make('nilai_akhir')
+                    ->label('Nilai Akhir')
+                    ->numeric()
+                    ->required()
+                    ->readOnly()
+                    ->dehydrated(true), // supaya tidak bisa input manual, nilai dihitung otomatis
 
-            TextInput::make('keterangan')
-                ->label('Keterangan')
-                ->dehydrated(true),
-        ]);
-}
+                TextInput::make('keterangan')
+                    ->label('Keterangan')
+                    ->dehydrated(true),
+            ]);
+    }
 
-   public static function table(Table $table): Table
-{
-    return $table
-        ->columns([
-            TextColumn::make('nama_alat_kesehatan_dan_bahan')->label('Nama Alat dan Bahan')->sortable(),
-            TextColumn::make('nilai_akhir')->label('Nilai Akhir')->sortable(),
-            TextColumn::make('keterangan')->label('Keterangan'),
-        ])
-        ->filters([
-            SelectFilter::make('nilai_akhir')
-                ->label('Filter Nilai Akhir')
-                ->options([
-                    100 => 'Sangat Direkomendasi',
-                    75 => 'Direkomendasi',
-                    25 => 'Tidak Direkomendasi',
-                ]),
-        ])
-        ->headerActions([
-            Action::make('downloadPdf')
-                ->label('Download PDF')
-                ->url(fn () => route('kriteria.penilaian.pdf'))  // nanti buat route ini
-                ->openUrlInNewTab(),
-        ])
-        ->defaultSort('nilai_akhir', 'desc');
-}
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('nama_alat_kesehatan_dan_bahan')->label('Nama Alat dan Bahan')->sortable(),
+                TextColumn::make('nilai_akhir')->label('Nilai Akhir')->sortable(),
+                TextColumn::make('keterangan')->label('Keterangan'),
+            ])
+            ->filters([
+                SelectFilter::make('nilai_akhir')
+                    ->label('Filter Nilai Akhir')
+                    ->options([
+                        100 => 'Sangat Direkomendasi',
+                        75 => 'Direkomendasi',
+                        25 => 'Tidak Direkomendasi',
+                    ]),
+            ])
+            ->headerActions([
+                Action::make('downloadPdf')
+                    ->label('Download PDF')
+                    ->url(fn() => route('kriteria.penilaian.pdf'))  // nanti buat route ini
+                    ->openUrlInNewTab(),
+            ])
+            ->defaultSort('nilai_akhir', 'desc');
+    }
 
     public static function getRelations(): array
     {
@@ -88,5 +88,15 @@ class KriteriaPenilaianResource extends Resource
             'create' => Pages\CreateKriteriaPenilaian::route('/create'),
             'edit' => Pages\EditKriteriaPenilaian::route('/{record}/edit'),
         ];
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Kriteria Penilaian';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Kriteria Penilaian';
     }
 }
