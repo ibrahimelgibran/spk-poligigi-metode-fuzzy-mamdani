@@ -16,6 +16,7 @@
         <thead>
             <tr>
                 <th>Nama Alat dan Bahan</th>
+                <th>Supplier</th>
                 <th>Nilai Akhir</th>
                 <th>Keterangan</th>
             </tr>
@@ -24,6 +25,7 @@
             @foreach ($data as $item)
             <tr>
                 <td>{{ $item->nama_alat_kesehatan_dan_bahan }}</td>
+                <td>{{ $item->aset->supplier }}</td>
                 <td>{{ $item->nilai_akhir }}</td>
                 <td>{{ $item->keterangan }}</td>
             </tr>

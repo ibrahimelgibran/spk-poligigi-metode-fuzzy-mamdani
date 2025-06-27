@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Filament\Resources\KriteriaPenilaianResource\Pages;
+use App\Models\RiwayatKriteriaPenilaian;
 
 use App\Filament\Resources\KriteriaPenilaianResource;
 use Filament\Actions;
@@ -10,6 +11,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form; // Ini yang kurang - import class Form
+use Carbon\Carbon;  
 
 class CreateKriteriaPenilaian extends CreateRecord
 {
@@ -57,6 +59,16 @@ class CreateKriteriaPenilaian extends CreateRecord
             Textarea::make('keterangan')
                 ->label('Keterangan')
                 ->dehydrated(true),
+        ]);
+    }
+
+     protected function afterCreate(): void
+    {
+        RiwayatKriteriaPenilaian::create([
+            'nama_alat_dan_bahan' => $this->record->nama_alat_kesehatan_dan_bahan,
+            'tanggal_perhitungan' => Carbon::now(),
+            'nilai_akhir'         => $this->record->nilai_akhir,
+            'keterangan'          => $this->record->keterangan,
         ]);
     }
 }

@@ -33,6 +33,9 @@ class AsetResource extends Resource
         return $form->schema([
             Grid::make(2)->schema([
                 TextInput::make('nama_alat_dan_bahan')->required()->label('Nama Alat/Bahan'),
+                 TextInput::make('supplier')              // ⬅️ field baru
+                    ->label('Supplier')
+                    ->maxLength(255),
                 TextInput::make('harga')->numeric()->required(),
                 TextInput::make('merek'),
                 TextInput::make('garansi'),
@@ -59,6 +62,7 @@ class AsetResource extends Resource
 {
     return $table->columns([
         TextColumn::make('nama_alat_dan_bahan')->label('Nama'),
+        TextColumn::make('supplier')->label('Supplier')->sortable(),
         TextColumn::make('jenis')->label('Jenis'),
         TextColumn::make('harga')->money('IDR')->label('Harga'),
         TextColumn::make('merek')->label('Merek')->sortable(),

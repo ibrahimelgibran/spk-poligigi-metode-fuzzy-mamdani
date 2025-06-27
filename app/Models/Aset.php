@@ -8,6 +8,7 @@ class Aset extends Model
 {
     protected $fillable = [
         'nama_alat_dan_bahan',
+        'supplier',
         'harga',
         'merek',
         'garansi',

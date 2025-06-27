@@ -11,6 +11,7 @@ class KriteriaPenilaian extends Model
 
     protected $fillable = [
         'nama_alat_kesehatan_dan_bahan',
+        'supplier',
         'nilai_akhir',
         'keterangan',
     ];
