@@ -41,8 +41,12 @@ class SupplierResource extends Resource
 public static function table(Table $table): Table
 {
     return $table->columns([
-        TextColumn::make('name')->label('Supplier'),
+        // kolom nama supplier – sekarang bisa dicari
+        TextColumn::make('name')
+            ->label('Supplier')
+            ->searchable(),          // ⬅️ tambahkan ini
 
+        // kolom-kolom lain
         TextColumn::make('equipments.name')->label('Alat Kesehatan'),
         TextColumn::make('equipments.price')->label('Harga')->money('IDR'),
         TextColumn::make('equipments.brand')->label('Merek'),

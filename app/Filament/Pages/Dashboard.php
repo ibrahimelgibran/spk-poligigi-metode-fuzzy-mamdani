@@ -3,17 +3,26 @@
 namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
+use App\Models\Aset;          // model alat kesehatan
+use App\Models\KriteriaPenilaian;
+use App\Models\Supplier;      // model supplier
+use App\Models\Penilaian;     // model penilaian
 
 class Dashboard extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-home';
-
     protected static string $view = 'filament.pages.dashboard';
 
-    protected static ?string $title = 'Dashboard';
+    // properti publik agar bisa dipakai di Blade
+    public int $totalAset     = 0;
+    public int $totalSupplier = 0;
+    public int $totalNilai    = 0;
 
-    public static function shouldRegisterNavigation(): bool
+    public function mount(): void
     {
-        return true; // Supaya muncul di sidebar
+        // hitung jumlah tiap tabel
+        $this->totalAset     = Aset::count();
+        $this->totalSupplier = Supplier::count();
+        $this->totalNilai    = KriteriaPenilaian::count();
     }
 }
